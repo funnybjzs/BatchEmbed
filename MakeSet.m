@@ -3,19 +3,10 @@
 %output : PNG or JPEG
 
 function MakeSet(inputDir,outputDir,var)
-%open log
+%open log，未对目录存在性做检查等出错处理，记录到log中
 diary(var.log);
-%var detection
-if(length(unique([length(inputDir),length(outputDir),length(var.qf),length(var.size)]))~=1)
-    fprintf('错误，参数数目不一致\n');
-end
 %process every dir
 for d=1:length(inputDir)
-    %dir exist
-    if(~exist(inputDir{d},'dir'))
-        fprintf('输入文件目录不存在 [%s] \n',inputDir{d});
-        break;
-    end
     %get files
     var.input_imgext='png';  %当前值针对PNG图像，不可更改
     inputFiles=dir([inputDir{d} '\*.' var.input_imgext]);
@@ -29,14 +20,10 @@ for d=1:length(inputDir)
         fprintf('[结束时间: %s]\n',datestr(now,'yy-mm-dd HH:MM:SS'));
         fprintf('---------------------------\r\n');
         break; %continue next dir process
-    end
-    
-    if(~exist(outputDir{d},'dir'))
-        mkdir(outputDir{d});
-    end
-    
+    end      
     for i=1:numel(inputFiles)
         ProcessImage(inputDir,inputFiles,outputDir,var,d,i);
+        fprintf('\n');
     end
     fprintf('[结束时间: %s]\n',datestr(now,'yy-mm-dd HH:MM:SS'));
     fprintf('---------------------------\r\n');
