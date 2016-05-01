@@ -19,8 +19,8 @@ if(var.outputImgext=='png')
     for sz=1:numel(var.size)
         %创建对应size目录
         dirName=[var.outputImgext,'_',int2str(var.size{sz}(1)),'x',int2str(var.size{sz}(2))];
-        if(~exist([outputDir_,'\',dirName],'dir'))
-            mkdir([outputDir_,'\',dirName]); 
+        if(~exist([outputDir_,'\',dirName,'\',dirName,'_null_000'],'dir'))
+            mkdir([outputDir_,'\',dirName,'\',dirName,'_null_000']); 
         end
         dstFile=fullfile([outputDir_,'\',dirName],files(i).name);
         %rezie至对应的尺寸
