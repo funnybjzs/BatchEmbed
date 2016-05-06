@@ -10,7 +10,7 @@ for d=1:length(inputDir)
     if(~length(files)) %文件夹为空
         fprintf('[结束时间: %s]\n',datestr(now,'yy-mm-dd HH:MM:SS'));
         fprintf('---------------------------\r\n');
-        break;
+        continue;
     end       
     %创造消息目录、隐写集目录
     for e=1:length(var.embedFun)
@@ -29,12 +29,12 @@ for d=1:length(inputDir)
             cover=[inputDir{d} '\' files(id).name];
             fprintf('正在处理第 %d 张图像 :  %s\n',id,cover);
             fprintf('共 % d 种目标处理参数 :\n',length(var.embedFun)*length(var.payLoad));
+            cover_ppm=JStegPPM(cover,var,d,jstegPPMDir);
             for e=1:length(var.embedFun)
                 for p=1:length(var.payLoad)
                     fprintf('【嵌入算法：%s ---嵌入率 %f】\n',var.embedFun{e},var.payLoad(p));
                     stego=[stegoDir{e,p},'\',files(id).name];
                     if (strcmp(var.embedFun{e},'JSteg'))
-                        cover_ppm=JStegPPM(cover,var,d,jstegPPMDir);
                         JSteg(id,d,cover,stego,msgDir{e,p},var.payLoad(p),var,cover_ppm);
                     else %其它算法
                         feval(var.embedFun{e},id,d,cover,stego,msgDir{e,p},var.payLoad(p),var);                       

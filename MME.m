@@ -6,8 +6,8 @@ function MME(id,d,cover,stego,msgpath,embedrate,var)
     MsgFile=[msgpath '\' fname '.bin'];
     GenMsg(id, msglength, MsgFile);
     
-    [~,msg]=system(['java.exe -Xmx1024M -jar ' [var.exe '\mme.jar embed -me 2 -e '] MsgFile ' -p ' var.password ' -q ' num2str(var.qf(d)) ' ' cover ' ' stego]);
-    if (msg(1)=='F' && msg(2)=='5' )
+    [ret,~]=system(['java.exe -Xmx1024M -jar ' [var.exe '\mme.jar embed -me 2 -e '] MsgFile ' -p ' var.password ' -q ' num2str(var.qf(d)) ' ' cover ' ' stego]);
+    if (ret)
         fprintf('处理第 %d 张图像【失败】%s \n',id,stego);
     else
         fprintf('处理第 %d 张图像【成功】%s \n',id,stego);

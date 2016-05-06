@@ -10,7 +10,7 @@ for d=1:length(inputDir)
     if(~length(files)) %文件夹为空
         fprintf('[结束时间: %s]\n',datestr(now,'yy-mm-dd HH:MM:SS'));
         fprintf('---------------------------\r\n');
-        break;
+        continue;
     end       
     %创造消息目录、隐写集目录
     for e=1:length(var.embedFun)

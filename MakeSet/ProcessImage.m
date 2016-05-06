@@ -22,7 +22,7 @@ if(var.outputImgext=='png')
         if(~exist([outputDir_,'\',dirName,'\',dirName,'_null_000'],'dir'))
             mkdir([outputDir_,'\',dirName,'\',dirName,'_null_000']); 
         end
-        dstFile=fullfile([outputDir_,'\',dirName],files(i).name);
+        dstFile=fullfile([outputDir_,'\',dirName,'\',dirName,'_null_000'],files(i).name);
         %rezie至对应的尺寸
         if((height/width)>=1&&(var.size{sz}(1)/var.size{sz}(2))>=1)
             dstImg=imresize(srcImg,[var.size{sz}(1),var.size{sz}(2)]);
