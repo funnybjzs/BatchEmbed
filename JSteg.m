@@ -1,10 +1,11 @@
-function JSteg(id,d,cover,stego,msgpath,embedrate,var,cover_ppm)
+function JSteg(id,d,cover,stego,msgpath,embedrate,var)
     jobj=jpeg_read(cover);
     [fpath,fname,fext]=fileparts(cover);
     accnt=sum(jobj.coef_arrays{1,1}(:)~=0)-jobj.image_width*jobj.image_height/64;
     msglength=floor(accnt*embedrate/8);
     MsgFile=[msgpath '\' fname '.bin'];
     GenMsg(id, msglength, MsgFile);
+    cover_ppm=fullfile(var.ppmdir{d},[fname,'.ppm']);
     command=[[var.exe '\cjpeg.exe -quality '] num2str(var.qf(d)) ' -steg ' MsgFile ' ' cover_ppm ' ' stego];
     [ret,~]=system(command);
     if(ret)   
